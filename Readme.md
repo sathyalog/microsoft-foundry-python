@@ -1,3 +1,19 @@
+# Azure AI Foundry - Agent Framework Comparison
+
+This project demonstrates two different approaches to connecting and communicating with an AI Agent hosted in Azure AI Foundry using Python:
+1. **Azure AI Projects SDK** (Original implementation)
+2. **Microsoft Agent Framework (MAF)** (New, asynchronous, enterprise-ready orchestration framework)
+
+---
+
+## Project Structure
+
+* `agent.py` - Core implementation using the legacy Azure AI Projects SDK.
+* `agent_maf.py` - Modernized implementation using the Microsoft Agent Framework (MAF).
+* `.env` - Local environment configuration file.
+
+---
+
 # Use a Microsoft Foundry Agent with Python
 
 This guide explains how to create and configure an agent in **Microsoft Foundry**, connect your local machine to the same project, and use Python to retrieve that agent and send prompts to an LLM through your Foundry project. It is written for first-time users, so it includes the Azure portal setup, VS Code setup, Azure authentication, Python environment setup, and a full example based on the `azure-ai-projects` SDK.[web:12][page:1]
@@ -282,6 +298,28 @@ If everything is configured correctly, the script should:
 - Find the agent.
 - Send the input prompt.
 - Print the LLM response in your terminal.
+
+whatever we developed so far is created using Azure AI Projects SDK.
+
+Microsoft also provides another framework called MAF(Microsoft Agent Framework)
+Microsoft Agent Framework (MAF) introduces a higher-level abstraction that unifies agents, personas, and memory tools natively. It relies on asynchronous execution via Python's asyncio loop to efficiently manage multi-agent architectures and high-performance streaming.
+
+In order to use MAF and connect your agent from python we can can do the following..
+
+`pip install agent-framework --pre`
+`pip install python-dotenv`
+
+also create an .env file now to move our Azure AI project end point and Agent name and model to .env file
+
+Now create a file name agent_maf.py to access using MAF framework and communicate to LLM. Pls check the code to understand of using MAF framework.
+
+Key Enhancements in MAF
+
+    Asynchronous Design: Handled natively using asyncio for scalable execution.
+
+    Streamlined Arguments: Uses unified project_endpoint and model initializers inside FoundryChatClient.
+
+    Agent Encapsulation: Moves logic out of explicit client creation steps and abstracts interactions into a singular Agent.run() method execution.
 
 ## How your code works
 
