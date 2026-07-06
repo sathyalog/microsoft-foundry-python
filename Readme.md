@@ -321,6 +321,45 @@ Key Enhancements in MAF
 
     Agent Encapsulation: Moves logic out of explicit client creation steps and abstracts interactions into a singular Agent.run() method execution.
 
+## Workflow agent creation
+1. Click on build -> agent -> workflow -> blank workflow
+![workflow creation](<Screenshot 2026-07-06 at 6.12.11 PM.png>)
+2. Add a new node
+Next to start node, click on + icon. Then select agent and give a name to it. In my case it is title-description-generator as shown below.
+Give instruction as follows..
+You are a YouTube content strategist.
+Given a topic or short idea, generate:
+- Three compelling video titles numbered 1, 2, and 3
+- One SEO‑optimized YouTube description
+Guidelines:
+- Titles should be curiosity‑driven but not clickbait
+- Use natural language
+- Target business and technology audiences
+- Avoid emojis and hashtags
+Return everything as plain text.
+![add-new-node](<Screenshot 2026-07-06 at 6.24.05 PM.png>)
+
+3. Go to node settings and give node with a proper name like action-generator-id and select conversation context as System.CoversationId
+Select input message as System.LastMessage.Text
+Save agent output message as generated_title_description as shown in below screenshots.
+![node-settings1](<Screenshot 2026-07-06 at 6.32.55 PM.png>)
+![node-settings2](<Screenshot 2026-07-06 at 6.32.47 PM.png>)
+
+click on done to save the changes.
+
+And finally click to name(content-approval-pipeline) your workflow
+![save](<Screenshot 2026-07-06 at 6.37.10 PM.png>)
+
+It will be published and ready to preview these 2 steps for now..
+1. Start
+2. title-description-generator
+
+On clicking preview you will see a small chat window where we can enter a topic details and in my case i provided as "Azure AI agents for enterprise developers".
+
+With that our title-description-generator agent will run and provide titles with some description.
+![preview-screen](<Screenshot 2026-07-06 at 6.41.43 PM.png>) 
+![agent-running](<Screenshot 2026-07-06 at 6.39.39 PM.png>)
+
 ## How your code works
 
 ### `AIProjectClient`
