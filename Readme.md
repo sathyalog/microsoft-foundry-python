@@ -357,8 +357,31 @@ It will be published and ready to preview these 2 steps for now..
 On clicking preview you will see a small chat window where we can enter a topic details and in my case i provided as "Azure AI agents for enterprise developers".
 
 With that our title-description-generator agent will run and provide titles with some description.
-![preview-screen](<Screenshot 2026-07-06 at 6.41.43 PM.png>) 
-![agent-running](<Screenshot 2026-07-06 at 6.39.39 PM.png>)
+![preview-screen](<Screenshot 2026-07-06 at 6.39.39 PM.png>)
+![running-agent](<Screenshot 2026-07-06 at 6.41.43 PM.png>) 
+4. Add a new node(Refiner agent)
+"title-description-quality-refiner" is my new agent name and instructions as follows..
+You are a senior YouTube growth strategist.
+You receive draft titles and a description.
+Your job:
+- Improve clarity
+- Increase click‑through appeal without clickbait
+- Tighten wording
+- Make the description more professional
+- Preserve the original intent
+Return:
+- One final best title
+- One polished description
+![refiner-node](<Screenshot 2026-07-06 at 6.56.46 PM.png>)
+Rename node-id to action-refiner-id
+goto node settings:
+- Input message need to be updated with previous node generated_title_description
+- output message create a new variable as refined_title_description
+![refiner-node-settings](<Screenshot 2026-07-06 at 6.58.33 PM.png>)
+
+Now click on done and click on save and click on preview and provide the "Azure AI agents for enterprise developers" in the section and run preview..
+![new-node-running](<Screenshot 2026-07-06 at 7.03.16 PM.png>)
+
 
 ## How your code works
 
