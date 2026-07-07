@@ -391,6 +391,26 @@ question content as "Do you approve this Youtube title and description? {Last(Lo
 this step we are trying to get sign off from human for the previous generated response i.e., refined_title_description.
 ![ask-question-node](<Screenshot 2026-07-07 at 1.24.59 PM.png>)
 
+If/Else node
+Add a ifelse node which will add 2 sub nodes i.e., If node and else node
+For if node, add a condition like "user_approval_response='yes'" like shown below..
+![if-block](if-block.png)
+Jumping on to else:
+In ask a question node, if enduser ask foundry to refine title and description and provide other inputs, it has to go through else node and hence we would need a set variable node where it concatenates generated_title_description + refined_title_descripton+user_approval_response to LLM so it can regenerate new content
+![inside-else](set-variable-in-else.png)
+
+Now create a goto node to redirect it to beginning where content generation with title and description starts, so we would need a new set a variable node right after start node. First lets create goto node like below..
+![goto](<goto node.png>)
+
+Now in order to regenerate new response, we would need to redirect to workflow where it started(next to start node) to generate title and description again. So we need to set a variable node right after next to start node.
+![set-variable-start](set-variable-below-start.png)
+
+We are all set with flow of else where if user asks for different topic with title and description. We are almost ready with if flow as well in case if response received from LLM is satisfied then we would say "yes" as our response to provide approval.
+
+So we will create a new node called send msg node where it displays the satisfied generated title and description and we will add END as next node to complete the flow.
+
+![send-msg](send-msg.png)
+
 ## How your code works
 
 ### `AIProjectClient`
