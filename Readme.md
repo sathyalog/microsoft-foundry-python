@@ -382,34 +382,76 @@ goto node settings:
 Now click on done and click on save and click on preview and provide the "Azure AI agents for enterprise developers" in the section and run preview..
 ![new-node-running](<Screenshot 2026-07-06 at 7.03.16 PM.png>)
 
-Human in the loop pattern:
-Lets introduce human approvals at this stage(signing off from human for automated actions) to take some decisions and this is called Human in the loop pattern. Create a new node called "Ask a question"
+---
 
-give node id title as action-human-approval
-question content as "Do you approve this Youtube title and description? {Last(Local.refined_title_description).Text} Type 'yes' to approve or provide feedback to regenerate"
+# Human-in-the-Loop Pattern in Foundry
 
-this step we are trying to get sign off from human for the previous generated response i.e., refined_title_description.
+The **Human-in-the-Loop (HITL)** pattern introduces a manual sign-off step for automated actions. This allows a human to review an AI's output, make a decision, and either approve it or request changes before the workflow proceeds.
+
+Here is how to build this pattern step-by-step in your Foundry workflow.
+
+---
+
+## Step 1: Add the "Ask a Question" Node
+
+First, we need to pause the automation and ask the user for approval on the previously generated text (`refined_title_description`).
+
+* **Node Type:** Ask a Question
+* **Node ID / Title:** `action-human-approval`
+* **Question Content:**
+> "Do you approve this YouTube title and description? `{Last(Local.refined_title_description).Text}` Type 'yes' to approve or provide feedback to regenerate."
 ![ask-question-node](<Screenshot 2026-07-07 at 1.24.59 PM.png>)
 
-If/Else node
-Add a ifelse node which will add 2 sub nodes i.e., If node and else node
-For if node, add a condition like "user_approval_response='yes'" like shown below..
+
+---
+
+## Step 2: Set Up the If/Else Branching
+
+Next, add an **If/Else** node to handle the human's response. This node splits the workflow into two paths:
+
+### Path A: The "If" Branch (User Approves)
+
+Add a condition to check if the user said "yes":
+
+* **Condition:** `user_approval_response = 'yes'`
 ![if-block](if-block.png)
-Jumping on to else:
-In ask a question node, if enduser ask foundry to refine title and description and provide other inputs, it has to go through else node and hence we would need a set variable node where it concatenates generated_title_description + refined_title_descripton+user_approval_response to LLM so it can regenerate new content
+
+### Path B: The "Else" Branch (User Rejects / Provides Feedback)
+
+If the user provides feedback instead of saying "yes", the workflow routes to the **Else** branch to regenerate the content.
+
+To give the LLM full context for the rewrite, add a **Set Variable** node inside the Else branch. This node concatenates the original generation, the previous refinement, and the user's fresh feedback:
+
+* **Variable Formula:** `generated_title_description + refined_title_description + user_approval_response`
 ![inside-else](set-variable-in-else.png)
+---
 
-Now create a goto node to redirect it to beginning where content generation with title and description starts, so we would need a new set a variable node right after start node. First lets create goto node like below..
+## Step 3: Loop Back using a Goto Node
+
+To actually regenerate the content, we need to send the workflow back to the beginning.
+
+1. Create a **Goto** node at the end of your Else branch.
 ![goto](<goto node.png>)
-
-Now in order to regenerate new response, we would need to redirect to workflow where it started(next to start node) to generate title and description again. So we need to set a variable node right after next to start node.
+2. Target the node right after the Start node where the content generation loop begins.
 ![set-variable-start](set-variable-below-start.png)
+> **Note:** To ensure the loop correctly processes the updated feedback on the next pass, make sure you have a **Set Variable** node placed right after the Start node to capture the incoming loop variables.
 
-We are all set with flow of else where if user asks for different topic with title and description. We are almost ready with if flow as well in case if response received from LLM is satisfied then we would say "yes" as our response to provide approval.
+---
 
-So we will create a new node called send msg node where it displays the satisfied generated title and description and we will add END as next node to complete the flow.
+## Step 4: Finalize the Approval ("If" Flow)
 
+If the user approves the content (the "If" path), the workflow moves forward to completion.
+
+1. Create a **Send Message** node to display the final, approved YouTube title and description to the user.
+2. Connect this to an **End** node to successfully terminate the workflow execution.
 ![send-msg](send-msg.png)
+
+---
+
+## Final Workflow Overview
+
+Once completed, your final Foundry workflow canvas should look like this:
+![final-output](<Screenshot 2026-07-07 at 5.01.28 PM.png>)
 
 ## How your code works
 
