@@ -382,6 +382,14 @@ goto node settings:
 Now click on done and click on save and click on preview and provide the "Azure AI agents for enterprise developers" in the section and run preview..
 ![new-node-running](<Screenshot 2026-07-06 at 7.03.16 PM.png>)
 
+Human in the loop pattern:
+Lets introduce human approvals at this stage(signing off from human for automated actions) to take some decisions and this is called Human in the loop pattern. Create a new node called "Ask a question"
+
+give node id title as action-human-approval
+question content as "Do you approve this Youtube title and description? {Last(Local.refined_title_description).Text} Type 'yes' to approve or provide feedback to regenerate"
+
+this step we are trying to get sign off from human for the previous generated response i.e., refined_title_description.
+![ask-question-node](<Screenshot 2026-07-07 at 1.24.59 PM.png>)
 
 ## How your code works
 
