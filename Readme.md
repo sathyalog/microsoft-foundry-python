@@ -4,10 +4,14 @@ This project demonstrates two different approaches to connecting and communicati
 1. **Azure AI Projects SDK** (Original implementation)
 2. **Microsoft Agent Framework (MAF)** (New, asynchronous, enterprise-ready orchestration framework)
 
-Also this project explains how to create AI Workflow in foundry.
+Also this project explains **How to create AI Workflow in foundry**.
+
 Before that, First lets understand the difference between AI Agent & AI Workflow. 
-AI Workflow - strcutured, predefined sequence of steps.
-AI Agent - decision-making system.
+
+**AI Workflow** - strcutured, predefined sequence of steps.
+
+**AI Agent** - decision-making system.
+
 ---
 
 ## Project Structure
