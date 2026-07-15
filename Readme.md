@@ -1,9 +1,13 @@
-# Azure AI Foundry - Agent Framework Comparison
+# Azure AI Foundry - Agent Framework Comparison & AI Workflow creation in Foundry
 
 This project demonstrates two different approaches to connecting and communicating with an AI Agent hosted in Azure AI Foundry using Python:
 1. **Azure AI Projects SDK** (Original implementation)
 2. **Microsoft Agent Framework (MAF)** (New, asynchronous, enterprise-ready orchestration framework)
 
+Also this project explains how to create AI Workflow in foundry.
+Before that, First lets understand the difference between AI Agent & AI Workflow. 
+AI Workflow - strcutured, predefined sequence of steps.
+AI Agent - decision-making system.
 ---
 
 ## Project Structure
